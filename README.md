@@ -17,6 +17,6 @@ Do not expect any support related to the program.
 
 ## Acknowledgements
 
- - There is a good change things will not work as planned
+ - There is a good chance things will not work as planned
  - Spaghetti code may be a staple within this projet
 
