@@ -20,3 +20,13 @@ class BaseWindow:
     def addToParent(self):
         self.output(f"Appending tab \"{self.name}\" to WindowNotebook")
         self.parent.add(self.frame, text=self.name)
+        self.addFrames()
+        self.addWidgets()
+
+#Define function in case parent class does not define
+    def addFrames(self):
+        self.output("[Warning] No frames have been defined!")
+
+#Define function in case parent class does not define
+    def addWidgets(self):
+        self.output("[Warning] No widgets have been appended!")
