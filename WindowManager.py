@@ -31,7 +31,10 @@ class WindowManager:
         repo = Repository("./")
         headRef = repo.head
         currentBranch = headRef.shorthand
-        return currentBranch
+
+        headCommit = repo.revparse_single('HEAD')
+        commitSha = headCommit.hex[:7]
+        return f"{currentBranch}_{commitSha}"
 
 #Complete the initial setup for the window, inclusing the size and window
     def createWindow(self):
