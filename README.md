@@ -6,6 +6,8 @@ This is my project for the AQA A-Level Computer Science NEA
 
 It is a GUI that utilises 3 different encryption algoriths that are selectable by the user to send messages to chatrooms. These chatrooms will use python sockets in order to send the messages and establish a connection to another client.
 
+During development all of the code will either be in [releases](https://github.com/Liathers/A-Level-NEA/releases "releases") or the [dev branch](https://github.com/Liathers/A-Level-NEA/tree/dev "dev branch").
+
 *Do not expect any support related to the program.*
 
 ## License
