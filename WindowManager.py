@@ -1,5 +1,6 @@
 import tkinter as tk
 import tkinter.ttk as ttk
+from pygit2 import Repository
 
 from GUIFramework.MainWindow import *
 from GUIFramework.ConnectionWindow import *
@@ -20,6 +21,17 @@ class WindowManager:
 #Allows for print statements to be traced to specific classes easier
     def output(self, message):
         print(f"[Class:{self.__class__.__name__}] {message}")
+        
+        if self.mainWindow is not None and self.mainWindow.debugMessageLabel is not None:
+            self.mainWindow.debugMessageLabel.config(text=f"WindowManager: {message}")
+
+#This is used for local version control using github branches
+#This will be depreciated when the project is completed
+    def getBranch(self):
+        repo = Repository("./")
+        headRef = repo.head
+        currentBranch = headRef.shorthand
+        return currentBranch
 
 #Complete the initial setup for the window, inclusing the size and window
     def createWindow(self):
@@ -27,11 +39,11 @@ class WindowManager:
         self.windowRoot = tk.Tk()
         self.windowRoot.resizable(0, 0)
         self.windowRoot.geometry("854x480")
-        self.windowRoot.title("NEA Project | v2")
+        self.windowRoot.title(f"NEA Project | {self.getBranch()}")
 
 #Create the notebook widget in preparation for the respective frames
         self.windowNotebook = ttk.Notebook(self.windowRoot)
-        self.windowNotebook.pack(expand=True, fill="both")
+        self.windowNotebook.pack(expand=True, fill="both", anchor=tk.CENTER)
 
 #Loop the window so it can be interacted with
     def loopWindow(self):
@@ -62,6 +74,6 @@ class WindowManager:
 windowManager = WindowManager()
 windowManager.createWindow()
 windowManager.createMainWindow()
-windowManager.createChatWindow()
-windowManager.createConnectionWindow()
+#windowManager.createChatWindow()
+#windowManager.createConnectionWindow()
 windowManager.loopWindow()
