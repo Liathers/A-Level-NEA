@@ -42,7 +42,7 @@ class WindowManager:
         self.windowRoot = tk.Tk()
         self.windowRoot.resizable(0, 0)
         self.windowRoot.geometry("854x480")
-        self.windowRoot.title(f"NEA Project | {self.getBranch()}")
+        self.windowRoot.title(f"Computer Science NEA Project | {self.getBranch()}")
 
 #Create the notebook widget in preparation for the respective frames
         self.windowNotebook = ttk.Notebook(self.windowRoot)
@@ -72,11 +72,3 @@ class WindowManager:
         self.connectionWindow = ConnectionWindow(self.windowNotebook)
         self.connectionWindow.addToParent()
 #=====================================================================================
-
-#This is temporary as the WindowManager gets developed
-windowManager = WindowManager()
-windowManager.createWindow()
-windowManager.createMainWindow()
-#windowManager.createChatWindow()
-#windowManager.createConnectionWindow()
-windowManager.loopWindow()
