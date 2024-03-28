@@ -39,6 +39,14 @@ class WindowManager(BaseClass):
         self.windowNotebook = ttk.Notebook(self.windowRoot)
         self.windowNotebook.pack(expand=True, fill="both", anchor=tk.CENTER)
 
+#Ensure that the program does things gracefully when the window gets closed
+        self.windowRoot.protocol("WM_DELETE_WINDOW", self.closeWindow)
+
+#Do things once the window gets closed by the user
+    def closeWindow(self):
+        self.output("Window closed; exiting program")
+        exit(0)
+
 #Loop the window so it can be interacted with
     def loopWindow(self):
         self.output("Looping Window")
