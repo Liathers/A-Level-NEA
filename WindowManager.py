@@ -23,18 +23,21 @@ class WindowManager:
         print(f"[Class:{self.__class__.__name__}] {message}")
         
         if self.mainWindow is not None and self.mainWindow.debugMessageLabel is not None:
-            self.mainWindow.debugMessageLabel.config(text=f"WindowManager: {message}")
+            self.mainWindow.debugMessageLabel.config(text=f"[WindowManager] {message}")
 
 #This is used for local version control using github branches
 #This will be depreciated when the project is completed
     def getBranch(self):
-        repo = Repository("./")
-        headRef = repo.head
-        currentBranch = headRef.shorthand
+        try:
+            repo = Repository("./")
+            headRef = repo.head
+            currentBranch = headRef.shorthand
 
-        headCommit = repo.revparse_single('HEAD')
-        commitSha = headCommit.hex[:7]
-        return f"{currentBranch}_{commitSha}"
+            headCommit = repo.revparse_single('HEAD')
+            commitSha = headCommit.hex[:7]
+            return f"{currentBranch}_{commitSha}"
+        except:
+            return "branch_commit not found"
 
 #Complete the initial setup for the window, inclusing the size and window
     def createWindow(self):

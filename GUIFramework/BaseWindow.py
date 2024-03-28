@@ -4,7 +4,7 @@ import tkinter.ttk as ttk
 #This class serves as the base for every different window within the program
 class BaseWindow:
     def __init__(self, parent):
-        print(f"Initialising {self.__class__.__name__}")
+        print(f"Initialising Class:{self.__class__.__name__}")
         self.name = None
         self.parent = parent
 
