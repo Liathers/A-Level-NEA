@@ -16,32 +16,38 @@ class MainWindow(BaseWindow):
 
 #Create the frame that will allow users to connect to different chatrooms
         self.connectionFrame = ttk.LabelFrame(self.frame)
-        self.connectionFrame.config(text="Connect to a chatroom", height=197, width=560)
+        self.connectionFrame.config(text="Connect to a chatroom", height=197, width=360)
         self.connectionFrame.grid(column=0, row=0, padx=(10,5), pady=4)
         self.connectionFrame.grid_propagate(False)
 
 #Create the frame that will change settings related to connecting to a chatroom
-        #self.connectionSettingsFrame = ttk.LabelFrame(self.connectionFrame)
-        #self.connectionSettingsFrame.config(text="Encryption Algorithm", height=163, width=200)
-        #self.connectionSettingsFrame.grid(column=1, row=0, rowspan=7, sticky=tk.E)
-        #self.connectionSettingsFrame.grid_propagate(False)
+        self.connectionSettingsFrame = ttk.LabelFrame(self.frame)
+        self.connectionSettingsFrame.config(text="Connection Encryption Type", height=197, width=186)
+        self.connectionSettingsFrame.grid(column=1, row=0, padx=(5,5))
+        self.connectionSettingsFrame.grid_propagate(False)
 
 #Create the frame that will allow the user to create a chatroom for others to join
         self.creationFrame = ttk.LabelFrame(self.frame)
-        self.creationFrame.config(text="Create a chatroom", height=197, width=560)
+        self.creationFrame.config(text="Host a chatroom", height=197, width=360)
         self.creationFrame.grid(column=0, row=1, padx=(10,5))
         self.creationFrame.grid_propagate(False)
+
+#Create the frame that will change settings related to connecting to a chatroom
+        self.creationSettingsFrame = ttk.LabelFrame(self.frame)
+        self.creationSettingsFrame.config(text="Host Encryption Type", height=197, width=186)
+        self.creationSettingsFrame.grid(column=1, row=1, padx=(5,5))
+        self.creationSettingsFrame.grid_propagate(False)
 
 #Create the frame that will display basic output information relating to the program
         self.debugFrame = ttk.LabelFrame(self.frame)
         self.debugFrame.config(text="Program Log", height=40, width=560)
-        self.debugFrame.grid(column=0, row=2, padx=(10,5), pady=4)
+        self.debugFrame.grid(column=0, row=2, columnspan=2, padx=(10,5), pady=4)
         self.debugFrame.grid_propagate(False)
 
 #Create the frame that will be used to control settings related to the program
         self.settingsFrame = ttk.LabelFrame(self.frame)
         self.settingsFrame.config(text="Program Settings", height=442, width=260)
-        self.settingsFrame.grid(column=1, row=0, rowspan=3, padx=(5,10), pady=4)
+        self.settingsFrame.grid(column=2, row=0, rowspan=3, padx=(5,10), pady=4)
         self.settingsFrame.grid_propagate(False)
 #TODO Fix slight padding inconsistencies on padding for frames
 
