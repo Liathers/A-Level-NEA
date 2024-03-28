@@ -5,7 +5,10 @@ class MainWindow(BaseWindow):
         super().__init__(parent)
         self.name = "Home"
         self.debugMessageLabel = None
-        #self.frame is the fram required by the tab
+        #self.frame is the frame required by the tab
+        self.connectionIPInput = tk.StringVar()
+        self.connectionPortInput = tk.StringVar()
+        self.connectionKeyInput = tk.StringVar()
 
 #Append the frames that will be used within this window
     def addFrames(self):
@@ -16,6 +19,12 @@ class MainWindow(BaseWindow):
         self.connectionFrame.config(text="Connect to a chatroom", height=197, width=560)
         self.connectionFrame.grid(column=0, row=0, padx=(10,5), pady=4)
         self.connectionFrame.grid_propagate(False)
+
+#Create the frame that will change settings related to connecting to a chatroom
+        #self.connectionSettingsFrame = ttk.LabelFrame(self.connectionFrame)
+        #self.connectionSettingsFrame.config(text="Encryption Algorithm", height=163, width=200)
+        #self.connectionSettingsFrame.grid(column=1, row=0, rowspan=7, sticky=tk.E)
+        #self.connectionSettingsFrame.grid_propagate(False)
 
 #Create the frame that will allow the user to create a chatroom for others to join
         self.creationFrame = ttk.LabelFrame(self.frame)
@@ -39,8 +48,45 @@ class MainWindow(BaseWindow):
 #Append the widgets that will be used within this window
     def addWidgets(self):
         self.output("Appending widgets")
+        self.addConnectionWidgets()
+        self.addDebugWidgets()
 
 #Create the label for the program output, which will be edited when outputs are created
+    def addDebugWidgets(self):
         self.debugMessageLabel = ttk.Label(self.debugFrame)
         self.debugMessageLabel.config(text="None", width=92)
         self.debugMessageLabel.grid(column=0, row=0)
+
+#Creates the widgets for the connectionFrame
+    def addConnectionWidgets(self):
+        connectionLabelHeading = ttk.Label(self.connectionFrame)
+        connectionLabelHeading.config(text="This will allow you to connect to a preexisting chatroom.")
+        connectionLabelHeading.grid(column=0, row=0, padx=5)
+
+        connectionIPEntryHeading = ttk.Label(self.connectionFrame)
+        connectionIPEntryHeading.config(text="Chatroom IP:")
+        connectionIPEntryHeading.grid(column=0, row=1, padx=5, sticky=tk.W)
+
+        connectionIPEntry = ttk.Entry(self.connectionFrame)
+        connectionIPEntry.config(textvariable=self.connectionIPInput, width=30)
+        connectionIPEntry.grid(column=0, row=2, padx=5, sticky=tk.W)
+
+        connectionPortEntryHeading = ttk.Label(self.connectionFrame)
+        connectionPortEntryHeading.config(text="Chatroom Port:")
+        connectionPortEntryHeading.grid(column=0, row=3, padx=5, sticky=tk.W)
+
+        connectionPortEntry = ttk.Entry(self.connectionFrame)
+        connectionPortEntry.config(textvariable=self.connectionPortInput, width=30)
+        connectionPortEntry.grid(column=0, row=4, padx=5, sticky=tk.W)
+
+        connectionKeyEntryHeading = ttk.Label(self.connectionFrame)
+        connectionKeyEntryHeading.config(text="Chatroom Key:")
+        connectionKeyEntryHeading.grid(column=0, row=5, padx=5, sticky=tk.W)
+
+        connectionKeyEntry = ttk.Entry(self.connectionFrame)
+        connectionKeyEntry.config(textvariable=self.connectionKeyInput, width=30)
+        connectionKeyEntry.grid(column=0, row=6, padx=5, sticky=tk.W)
+
+        connectionSubmitEntry = ttk.Button(self.connectionFrame)
+        connectionSubmitEntry.config(text="Submit Connection")
+        connectionSubmitEntry.grid(column=0, row=7, padx=5, pady=(7,0), sticky=tk.W)
