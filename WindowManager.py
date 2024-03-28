@@ -1,6 +1,5 @@
 import tkinter as tk
 import tkinter.ttk as ttk
-from pygit2 import Repository
 
 from BaseClass import *
 from GUIFramework.MainWindow import *
@@ -9,9 +8,10 @@ from GUIFramework.ChatWindow import *
 
 class WindowManager(BaseClass):
 #Creates the base variables for window management
-    def __init__(self):
+    def __init__(self, version):
         super().__init__()
 
+        self.version = version
         self.windowRoot = None
         self.windowNotebook = None
 
@@ -27,27 +27,13 @@ class WindowManager(BaseClass):
         if self.mainWindow is not None and self.mainWindow.debugMessageLabel is not None:
             self.mainWindow.debugMessageLabel.config(text=f"[WindowManager] {message}")
 
-#This is used for local version control using github branches
-#This will be depreciated when the project is completed
-    def getBranch(self):
-        try:
-            repo = Repository("./")
-            headRef = repo.head
-            currentBranch = headRef.shorthand
-
-            headCommit = repo.revparse_single('HEAD')
-            commitSha = headCommit.hex[:7]
-            return f"{currentBranch}_{commitSha}"
-        except:
-            return "branch_commit not found"
-
 #Complete the initial setup for the window, inclusing the size and window
     def createWindow(self):
         self.output("Creating Window")
         self.windowRoot = tk.Tk()
         self.windowRoot.resizable(0, 0)
         self.windowRoot.geometry("854x480")
-        self.windowRoot.title(f"Computer Science NEA Project | {self.getBranch()}")
+        self.windowRoot.title(f"Computer Science NEA Project | {self.version}")
 
 #Create the notebook widget in preparation for the respective frames
         self.windowNotebook = ttk.Notebook(self.windowRoot)
