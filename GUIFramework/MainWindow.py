@@ -13,8 +13,6 @@ class MainWindow(BaseWindow):
 
 #Append the frames that will be used within this window
     def addFrames(self):
-        self.output("Appending Frames")
-
 #Create the frame that will allow users to connect to different chatrooms
         self.connectionFrame = ttk.LabelFrame(self.frame)
         self.connectionFrame.config(text="Connect to a chatroom", height=197, width=360)
@@ -51,10 +49,11 @@ class MainWindow(BaseWindow):
         self.settingsFrame.grid(column=2, row=0, rowspan=3, padx=(5,10), pady=4)
         self.settingsFrame.grid_propagate(False)
 #TODO Fix slight padding inconsistencies on padding for frames
+        self.output("Appended frames")
 
 #Append the widgets that will be used within this window
     def addWidgets(self):
-        self.output("Appending Widgets")
+        self.output("Appending Widgets..")
         self.addConnectionWidgets()
         self.addDebugWidgets()
 
@@ -63,6 +62,7 @@ class MainWindow(BaseWindow):
         self.debugMessageLabel = ttk.Label(self.debugFrame)
         self.debugMessageLabel.config(text="None", width=92)
         self.debugMessageLabel.grid(column=0, row=0)
+        self.output("Appended debugFrame widgets")
 
 #Creates the widgets for the connectionFrame
     def addConnectionWidgets(self):
@@ -97,3 +97,4 @@ class MainWindow(BaseWindow):
         connectionSubmitEntry = ttk.Button(self.connectionFrame)
         connectionSubmitEntry.config(text="Submit Connection")
         connectionSubmitEntry.grid(column=0, row=7, padx=5, pady=(7,0), sticky=tk.W)
+        self.output("Appended connectionFrame widgets")
