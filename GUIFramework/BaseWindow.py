@@ -1,20 +1,19 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 
+from BaseClass import *
+
 #This class serves as the base for every different window within the program
-class BaseWindow:
+class BaseWindow(BaseClass):
     def __init__(self, parent):
-        print(f"Initialising Class:{self.__class__.__name__}")
+        super().__init__()
+
         self.name = None
         self.parent = parent
 
 #Creates the frame that everything on the window will be based upon
         self.frame = ttk.Frame(self.parent)
         self.frame.pack(expand=True, fill="both")
-
-#Allows for print statements to be traced to specific classes easier
-    def output(self, message):
-        print(f"[Class:{self.__class__.__name__}] {message}")
 
 #Appends to frame to the parent provided to the class
     def addToParent(self):

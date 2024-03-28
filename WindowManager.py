@@ -2,14 +2,16 @@ import tkinter as tk
 import tkinter.ttk as ttk
 from pygit2 import Repository
 
+from BaseClass import *
 from GUIFramework.MainWindow import *
 from GUIFramework.ConnectionWindow import *
 from GUIFramework.ChatWindow import *
 
-class WindowManager:
+class WindowManager(BaseClass):
 #Creates the base variables for window management
     def __init__(self):
-        print(f"Initialising {__class__.__name__}")
+        super().__init__()
+
         self.windowRoot = None
         self.windowNotebook = None
 
@@ -20,8 +22,8 @@ class WindowManager:
 
 #Allows for print statements to be traced to specific classes easier
     def output(self, message):
-        print(f"[Class:{self.__class__.__name__}] {message}")
-        
+        super().output(message)
+
         if self.mainWindow is not None and self.mainWindow.debugMessageLabel is not None:
             self.mainWindow.debugMessageLabel.config(text=f"[WindowManager] {message}")
 

@@ -3,6 +3,7 @@ from GUIFramework.BaseWindow import *
 class MainWindow(BaseWindow):
     def __init__(self, parent):
         super().__init__(parent)
+
         self.name = "Home"
         self.debugMessageLabel = None
         #self.frame is the frame required by the tab
@@ -53,7 +54,7 @@ class MainWindow(BaseWindow):
 
 #Append the widgets that will be used within this window
     def addWidgets(self):
-        self.output("Appending widgets")
+        self.output("Appending Widgets")
         self.addConnectionWidgets()
         self.addDebugWidgets()
 
