@@ -29,8 +29,8 @@ class Client(BaseClass):
 #This function is used during development for starting the script for debugging
     def devStart(self):
         self.windowManager.createWindow()
-        self.windowManager.createMainWindow()
-        #windowManager.createChatWindow()
+        #self.windowManager.createMainWindow()
+        self.windowManager.createChatWindow()
         #windowManager.createConnectionWindow()
         self.windowManager.loopWindow()
 

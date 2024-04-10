@@ -10,6 +10,8 @@ class MainWindow(BaseWindow):
         self.connectionIPInput = tk.StringVar()
         self.connectionPortInput = tk.StringVar()
         self.connectionKeyInput = tk.StringVar()
+        self.creationPortInput = tk.StringVar()
+        self.creationKeyInput = tk.StringVar()
 
 #Append the frames that will be used within this window
     def addFrames(self):
@@ -55,6 +57,7 @@ class MainWindow(BaseWindow):
     def addWidgets(self):
         self.output("Appending Widgets..")
         self.addConnectionWidgets()
+        self.addCreationWidgets()
         self.addDebugWidgets()
 
 #Create the label for the program output, which will be edited when outputs are created
@@ -98,3 +101,29 @@ class MainWindow(BaseWindow):
         connectionSubmitEntry.config(text="Submit Connection")
         connectionSubmitEntry.grid(column=0, row=7, padx=5, pady=(7,0), sticky=tk.W)
         self.output("Appended connectionFrame widgets")
+
+    def addCreationWidgets(self):
+        creationLabelHeading = ttk.Label(self.creationFrame)
+        creationLabelHeading.config(text="This will allow you to create a new chatroom.")
+        creationLabelHeading.grid(column=0, row=0, padx=5)
+
+        creationPortEntryHeading = ttk.Label(self.creationFrame)
+        creationPortEntryHeading.config(text="Chatroom Port:")
+        creationPortEntryHeading.grid(column=0, row=1, padx=5, sticky=tk.W)
+
+        creationPortEntry = ttk.Entry(self.creationFrame)
+        creationPortEntry.config(textvariable=self.creationPortInput, width=30)
+        creationPortEntry.grid(column=0, row=2, padx=5, sticky=tk.W)
+
+        creationKeyEntryHeading = ttk.Label(self.creationFrame)
+        creationKeyEntryHeading.config(text="Chatroom Key:")
+        creationKeyEntryHeading.grid(column=0, row=3, padx=5, sticky=tk.W)
+
+        creationKeyEntry = ttk.Entry(self.creationFrame)
+        creationKeyEntry.config(textvariable=self.creationKeyInput, width=30)
+        creationKeyEntry.grid(column=0, row=4, padx=5, sticky=tk.W)
+
+        creationSubmitEntry = ttk.Button(self.creationFrame)
+        creationSubmitEntry.config(text="Create Chatroom")
+        creationSubmitEntry.grid(column=0, row=5, padx=5, pady=(7,0), sticky=tk.W)
+        self.output("Appended creationFrame widgets")
