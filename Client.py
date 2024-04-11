@@ -42,7 +42,10 @@ class Client(BaseClass):
 
     def encryptionTest(self):
         self.output("This is an encryption test!")
-        self.encryptionHandler.encrypt(0, "0", "This is a test")
+        encrypted = self.encryptionHandler.doAction(0, 0, "9", "This is pretty cool")
+        decrypted = self.encryptionHandler.doAction(1, 0, "9", encrypted)
+        self.output(f"Encrypted message: {encrypted}")
+        self.output(f"Decrypted message: {decrypted}")
 
 client = Client()
 #client.devStart()
