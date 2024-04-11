@@ -1,9 +1,10 @@
 from GUIFramework.BaseWindow import *
 
 class ChatWindow(BaseWindow):
-    def __init__(self, parent):
+    def __init__(self, parent, host):
         super().__init__(parent)
         self.name = "Connection IP:Port"
+        self.host = host
         
         self.chatText = None
         self.chatLines = 1
@@ -55,7 +56,7 @@ class ChatWindow(BaseWindow):
         self.output("Appended chatFrame widgets")
 
     def addChatText(self, name, message):
-        self.output(f"Adding text: '{message}' to {self.name.lower()} from '{name}'")
+        self.output(f"Adding text: \"{message}\" to IP:Port from {name}")
 
         self.chatText.config(state=tk.NORMAL)
         self.chatText.insert(f"{self.chatLines}.0", f"{name}: {message}\n")

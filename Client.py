@@ -2,6 +2,9 @@ from pygit2 import Repository
 
 from BaseClass import *
 from WindowManager import *
+from SocketsFramework import *
+from EncryptionFramework.EncryptionHandler import *
+
 
 class Client(BaseClass):
 #Creates the base variables for the client
@@ -11,6 +14,7 @@ class Client(BaseClass):
 
 #Initialise the WindowManager so GUI-relate things can be done
         self.windowManager = WindowManager(self.getBranchCommit())
+        self.encryptionHandler = EncryptionHandler()
 
 #This is used for local version control using github branches
 #This will potentially be depreciated when the project is completed
@@ -32,7 +36,14 @@ class Client(BaseClass):
         self.windowManager.createMainWindow()
         self.windowManager.createChatWindow()
         #windowManager.createConnectionWindow()
-        self.windowManager.loopWindow()
+        
+        self.windowManager.loopWindow() #Nothing can be processed beyond this point
+        #TODO: Threading might be useful for logic
+
+    def encryptionTest(self):
+        self.output("This is an encryption test!")
+        self.encryptionHandler.encrypt(0, "0", "This is a test")
 
 client = Client()
-client.devStart()
+#client.devStart()
+client.encryptionTest()

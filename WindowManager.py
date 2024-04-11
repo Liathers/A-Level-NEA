@@ -3,7 +3,6 @@ import tkinter.ttk as ttk
 
 from BaseClass import *
 from GUIFramework.MainWindow import *
-from GUIFramework.ConnectionWindow import *
 from GUIFramework.ChatWindow import *
 
 class WindowManager(BaseClass):
@@ -62,12 +61,6 @@ class WindowManager(BaseClass):
 #This is temporary as the GUI gets developed
     def createChatWindow(self):
         self.output("Creating Chat Window")
-        self.chatWindow = ChatWindow(self.windowNotebook)
+        self.chatWindow = ChatWindow(self.windowNotebook, False)
         self.chatWindow.addToParent()
-
-#This is temporary as the GUI gets developed
-    def createConnectionWindow(self):
-        self.output("Creating Connection Window")
-        self.connectionWindow = ConnectionWindow(self.windowNotebook)
-        self.connectionWindow.addToParent()
 #=====================================================================================
