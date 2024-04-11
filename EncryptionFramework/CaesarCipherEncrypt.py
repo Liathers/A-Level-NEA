@@ -20,17 +20,17 @@ class CaesarCipherEncrypt(BaseEncrypt):
         except:
             self.output("[Error] Improper key: Provided key is not able to be determined into a shift, returning provided message")
             return self.message
-        
+
         for character in self.message:
-            if character != " ":
-                characterAscii = ord(character)
+            if character.isalpha():
+                characterShift = ord(character.lower()) - ord('a')
 
                 if encrypting:
-                    characterAscii += self.key
+                    characterShifted = chr((characterShift + self.key) % 26 + ord('a'))
                 else:
-                    characterAscii -= self.key
-                
-                messageShifted += chr(characterAscii)
+                    characterShifted = chr((characterShift - self.key) % 26 + ord('a'))
+
+                messageShifted += characterShifted.upper() if character.isupper() else characterShifted
             else:
                 messageShifted += character
             
