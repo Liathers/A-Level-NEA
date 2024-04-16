@@ -1,34 +1,17 @@
-import time
-from threading import Thread
-
 from BaseClass import *
-from SocketsFramework.SocketServer import *
 from SocketsFramework.SocketClient import *
+from SocketsFramework.SocketServerThread import *
 
 class SocketHandler(BaseClass):
     def __init__(self):
         super().__init__()
+        self.clientSocket = None
 
     def createSocketSession(self, ip, port):
-        self.serverSocket = SocketServer(ip, port)
-        self.serverSocket.makeSocketSession()
-        self.serverSocket.listenSocketSession()
-        
-        #thread = Thread(target=self.serverSocket.acceptSocketClientConnection())
-        #thread.daemon = True
-        #thread.start()
-
-        #time.sleep(10)
-        #self.serverSocket.killCurrentClients()
-        self.output("Function completed.")
+        self.output("Creating Socket Server")
+        SocketServerThread(ip, port)
 
     def connectToSocketServerSession(self, ip, port, name):
+        self.output("Creating Socket Client")
         self.clientSocket = SocketClient(ip, port, name)
-        self.clientSocket.establishSocketServerConnection()
-        
-        thread = threading.Thread(target=self.clientSocket.listenForSocketServerMessages())
-        thread.daemon = True
-        thread.start()
-
-        self.output("Gotten past thread creation")
     

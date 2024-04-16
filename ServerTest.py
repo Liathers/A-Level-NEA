@@ -39,6 +39,8 @@ class ServerTest(BaseClass):
     def socketServerTest(self):
         self.output("This is a socket server test!")
         self.socketsHandler.createSocketSession("0.0.0.0", 20000)
+        while True:
+            1 == 1
 
 server = ServerTest()
 server.socketServerTest()

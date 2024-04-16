@@ -62,13 +62,21 @@ class Client(BaseClass):
     def socketClientTest(self):
         self.output("This is a socket client test!")
         self.socketsHandler.connectToSocketServerSession("127.0.0.1", 20000, f"Test_User_{random.randint(1,999)}")
-        self.output("Sending message")
-        self.socketsHandler.clientSocket.sendMessage(f"This is a test message {random.randint(1,999)}")
-        self.socketsHandler.clientSocket.sendMessage(f"This is another message {random.randint(1,999)}")
-        time.sleep(10)
-        self.socketsHandler.clientSocket.sendMessage(f"This is the final message {random.randint(1,999)}")
-        self.socketsHandler.clientSocket.closeSocketServerConnection()
-        self.output("Closed socket manually")
+        
+        self.output("Allowing user input")
+        test = True
+        while test:
+            message = input("What do you want to say? ")
+            if message == "standby":
+                self.output("Looping indefinately")
+                while True:
+                    1 == 1
+            if message == "close":
+                self.socketsHandler.clientSocket.closeSocketServerConnection()
+                self.output("Closed socket manually")
+                break
+            else:
+                self.socketsHandler.clientSocket.sendMessage(message)
 
     def socketClientTest2(self):
         self.output("This is a socket client test!")
