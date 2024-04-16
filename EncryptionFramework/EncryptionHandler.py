@@ -2,6 +2,7 @@ from BaseClass import *
 
 from EncryptionFramework.CaesarCipherEncrypt import *
 
+#This class is used to handle the ecryption-related actions within the program
 class EncryptionHandler(BaseClass):
     def __init__(self):
         super().__init__()
