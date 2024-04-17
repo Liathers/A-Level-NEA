@@ -67,7 +67,7 @@ class Client(BaseClass):
         test = True
         while test:
             time.sleep(0.5)
-            message = input("What do you want to say? ")
+            message = input()
             if message == "standby":
                 self.output("Looping indefinately")
                 while True:

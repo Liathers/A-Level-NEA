@@ -1,7 +1,7 @@
-import queue
+from queue import Queue, Empty
 from threading import Thread
 from socket import socket
-import asyncio
+from asyncio import new_event_loop, set_event_loop
 
 from BaseClass import *
 from SocketsFramework.SocketClientListenerThread import *
@@ -15,8 +15,10 @@ class SocketClientThread(BaseClass, Thread):
         self.ip = ip
         self.port = port
         self.name = name
-        self.queue = queue.Queue()
-        self.exit = False  # Exit request flag
+        self.usernames = []
+
+        self.queue = Queue()
+        self.exit = False
 
         self.start()
 
@@ -34,10 +36,10 @@ class SocketClientThread(BaseClass, Thread):
         self.socket.send(f"[CLIENTINFO]{self.name}[USERNAME]".encode())
         self.output("Notified server of username")
 
-        SocketClientListenerThread(self.socket)
+        SocketClientListenerThread(self, self.socket)
 
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
+        loop = new_event_loop()
+        set_event_loop(loop)
         loop.run_until_complete(self.runEventLoopAsync())
 
     async def runEventLoopAsync(self):
@@ -45,7 +47,7 @@ class SocketClientThread(BaseClass, Thread):
             try:
                 function, args, kwargs = self.queue.get(timeout=1.0/60)
                 await function(*args, **kwargs)
-            except queue.Empty:
+            except Empty:
                 pass
 
         self.closeSocketServerConnection()

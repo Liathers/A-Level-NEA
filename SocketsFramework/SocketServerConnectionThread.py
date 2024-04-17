@@ -17,6 +17,6 @@ class SocketServerConnectionThread(BaseClass, Thread):
         while True:
             client, address = self.parent.socket.accept()
             self.output(f"Client {address[0]}:{address[1]} established a connection")
-            self.parent.clients.append(client)
+            self.parent.connections.append([client, ""])
 
             SocketServerListenerThread(self.parent, client)
