@@ -19,8 +19,12 @@ class SocketClientListenerThread(BaseClass, Thread):
                 messageEncoded = self.socket.recv(1024)
                 if messageEncoded:
                     message = messageEncoded.decode()
-                    messageFinal = message.replace("[SEPARATOR]", ": ")
-                    self.output(f"[Server Sent] {messageFinal}")
+
+                    if message.startswith("[MESSAGERELAY]"):
+                        message = message.replace("[MESSAGERELAY]", "")
+                        self.output(f"[Server Sent] {message}")
+                    else:
+                        self.output(f"[Server Sent] Recieved uncategorised message {message}")
                 else:
                     self.output(f"[Disconnect] Client disconnected.")
                     self.socket.close()

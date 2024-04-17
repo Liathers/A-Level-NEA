@@ -66,15 +66,16 @@ class Client(BaseClass):
         self.output("Allowing user input")
         test = True
         while test:
+            time.sleep(0.5)
             message = input("What do you want to say? ")
             if message == "standby":
                 self.output("Looping indefinately")
                 while True:
                     1 == 1
-            if message == "close":
-                self.socketsHandler.clientSocket.closeSocketServerConnection()
-                self.output("Closed socket manually")
-                break
+            if message == "exit":
+                self.socketsHandler.clientSocket.stop()
+                self.output("Closing socket manually")
+                exit(0)
             else:
                 self.socketsHandler.clientSocket.sendMessage(message)
 

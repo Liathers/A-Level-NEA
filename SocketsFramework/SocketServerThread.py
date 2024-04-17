@@ -13,6 +13,7 @@ class SocketServerThread(BaseClass, Thread):
         self.ip = ip
         self.port = port
         self.clients = []
+        self.usernames = []
 
         self.start()
 
@@ -39,6 +40,7 @@ class SocketServerThread(BaseClass, Thread):
         self.output("Disconnecting clients..")
         for client in self.clients:
             client.close()
+        self.usernames = []
 
         self.socket.close()
         self.output("Closed socket!")

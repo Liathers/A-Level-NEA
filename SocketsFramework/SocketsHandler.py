@@ -1,5 +1,5 @@
 from BaseClass import *
-from SocketsFramework.SocketClient import *
+from SocketsFramework.SocketClientThread import *
 from SocketsFramework.SocketServerThread import *
 
 class SocketHandler(BaseClass):
@@ -13,5 +13,5 @@ class SocketHandler(BaseClass):
 
     def connectToSocketServerSession(self, ip, port, name):
         self.output("Creating Socket Client")
-        self.clientSocket = SocketClient(ip, port, name)
+        self.clientSocket = SocketClientThread(ip, port, name)
     

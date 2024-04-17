@@ -5,33 +5,43 @@ from BaseClass import *
 class SocketServerListenerThread(BaseClass, Thread):
     def __init__(self, parent, socket):
         Thread.__init__(self)
-        super().__init__()
 
         self.parent = parent
         self.socket = socket
+        self.info = self.socket.getpeername()
+        self.name = None
         self.daemon = True
+
+        self.title = f"{self.__class__.__name__} {self.info[0]}:{self.info[1]}"
 
         self.start()
 
     def run(self):
-        socketInfo = self.socket.getpeername()
-        self.title = f"{self.__class__.__name__} {socketInfo[0]}:{socketInfo[1]}"
-
         while True:
             try:
                 messageEncoded = self.socket.recv(1024)
                 if messageEncoded:
                     message = messageEncoded.decode()
-                    messageFinal = message.replace("[SEPARATOR]", ": ")
-                    self.output(f"[Recieved] {messageFinal}")
+                    if message.startswith("[CLIENTINFO]"):
+                        message = message.replace("[CLIENTINFO]", "")
+                        if message.endswith("[USERNAME]"):
+                            self.name = message.replace("[USERNAME]", "")
+                            self.parent.usernames.append(self.name)
+                            self.output(f"Client assigned username \"{self.name}\"")
+                    elif message.startswith("[MESSAGE]"):
+                        message = message.replace("[MESSAGE]", "")
+                        message = f"{self.name}: {message}"
+                        self.output(f"[Recieved] {message}")
+                        for client in self.parent.clients:
+                            if client != self.socket:
+                                client.send(f"[MESSAGERELAY]{message}".encode())
+                            else:
+                                continue
+                    else:
+                        self.output(f"[Unhandled] Recieved uncategorised message {message}")
 
-                    for client in self.parent.clients:
-                        clientInfo = client.getpeername()
-                        if client != self.socket:
-                            client.send(messageEncoded)
-                            #self.output(f"[Sent] Relayed message to {clientInfo[0]}:{clientInfo[1]}")
                 else:
-                    self.output(f"Client {socketInfo[0]}:{socketInfo[1]} disconnected.")
+                    self.output(f"Client {self.info[0]}:{self.info[1]} disconnected.")
                     self.socket.close()
                     self.parent.removeClient(self.socket)
                     break
