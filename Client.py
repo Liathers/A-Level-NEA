@@ -9,6 +9,12 @@ from SocketsFramework import *
 from EncryptionFramework.EncryptionHandler import *
 from SocketsFramework.SocketsHandler import *
 
+#Project title is "ACommunicateSecure"
+#TODO Get list of different packages used that need to be downloaded from pip3
+#TODO Create list of different sources for program, this can be summarised in the Documentation Bibliography, includes things like w3schools and also the NEA guide eBook
+#TODO End user "role" is communicator
+#TODO use modules; Pyfiglet
+#TODO don't use GUI, as result of time constraint
 
 class Client(BaseClass):
 #Creates the base variables for the client

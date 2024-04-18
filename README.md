@@ -1,4 +1,5 @@
 # A-Level NEA
+AComminucateSecure
 
 [![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
 
@@ -19,3 +20,7 @@ During development all of the code will either be in [releases](https://github.c
 
  - The releases are different stages of the development process, meaning features will either be incomplete or non-functional
  - Spaghetti code may be a staple of this project
+
+# Information
+
+ - The GUI element of this project will most likely be scrapped, at least until it gets submitted to the exam board due to severe time constraints
