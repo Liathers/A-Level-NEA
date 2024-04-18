@@ -51,7 +51,7 @@ class SocketClientThread(BaseClass, Thread):
             self.socket.connect((self.ip, self.port))
             self.output(f"Established connection to {self.ip}:{self.port}")
         except:
-            self.output("[Error] Failed to establish connection, closing thread")
+            self.output("Failed to establish connection, closing thread")
             self.stop()
 
 #Notify the server of the client username that is used, with the use of encryption
@@ -96,7 +96,11 @@ class SocketClientThread(BaseClass, Thread):
 #Encrypt the message using the key and algorithm specified
             message = self.encryptionHandler.doAction(action, self.algorithm, self.key, message)
             message = message.encode()
-            socket.send(message)
+            try:
+                socket.send(message)
+            except:
+                self.output("Disconnected from server")
+                self.stop()
 
 #If action is 1, decode and then return message
         elif action == 1:
@@ -108,4 +112,3 @@ class SocketClientThread(BaseClass, Thread):
 #Close the socket connection to the server
     def closeSocketServerConnection(self):
         self.socket.close()
-        self.output("Closed socket")

@@ -48,19 +48,18 @@ class SocketServerListenerThread(BaseClass, Thread):
 #that are connected to the server
                     elif message.startswith("[MESSAGE]"):
                         message = message.replace("[MESSAGE]", "")
-                        message = f"{self.connection[1]}: {message}"
+                        message = f"<{self.connection[1]}> {message}"
                         self.output(f"{message}")
                         self.parent.broadcastFromAuthorToClients(self.connection[0], f"[MESSAGERELAY]{message}")
 
 #If the recieved message is uncategorised, notify the user accordingly and output the message
                     else:
                         self.output(f"[Unhandled] Recieved uncategorised message {message}")
-#If unable to establish a connection, notify the user of the disconnect, and remove the client from the list of
-#connections as well as closing this thread
+#If unable to establish a connection, disconnect the client
                 else:
-                    self.output(f"Client {self.info[0]}:{self.info[1]} disconnected.")
-                    self.connection[0].close()
-                    self.parent.removeClient(self.connection[0])
+                    self.parent.disconnectClient(self.connection[0], self.info)
                     break
+#If unable to establish a connection, disconnect the client
             except:
-                continue
+                self.parent.disconnectClient(self.connection[0], self.info)
+                break

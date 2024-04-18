@@ -46,14 +46,16 @@ class SocketServerThread(BaseClass, Thread):
         SocketServerConnectionThread(self)
 
 #Remove a client from the server
-    def removeClient(self, client):
+    def disconnectClient(self, client, clientInfo):
 #Look through the list of connections, and once the client is found, remove it from the list of connections and then
-#close the connection
+#close the connection, notify the other clients, and output
         pos = 0
         for connection in self.connections:
             if connection[0] == client:
                 self.connections.pop(pos)
                 connection[0].close()
+                self.broadcastFromAuthorToClients(None, f"[DISCONNECTED]{connection[1]}")
+                self.output(f"Client {clientInfo[0]}:{clientInfo[1]} disconnected")
             else:
                 pos += 1
 
@@ -77,9 +79,7 @@ class SocketServerThread(BaseClass, Thread):
 #If an error occurs, then notify the user, and also broadcast it to all connected clients, and remove it from the list
 #of current connections
                 except:
-                    self.output(f"Client {info[0]}:{info[1]} lost connection")
-                    self.removeClient(socket)
-                    self.broadcastFromAuthorToClients(None, f"[DISCONNECTED]{username}")
+                    self.disconnectClient(socket, info)
             else:
                 continue
 
@@ -105,7 +105,8 @@ class SocketServerThread(BaseClass, Thread):
         self.output("Disconnecting all clients..")
 #For every client in connections, remove it
         for connection in self.connections:
-            self.removeClient(connection[0])
+            
+            self.disconnectClient(connection[0], connection[0].getpeername())
 
         self.socket.close()
         self.output("Closed socket!")

@@ -7,10 +7,6 @@ class EncryptionHandler(BaseClass):
     def __init__(self):
         super().__init__()
 
-#TODO ACTIONS
-#Action 0 is encrypt
-#Action 1 is decrypt
-
 #When an action is needed, allow the user to select the algorithm used, the key, the action done and also the message
 #to be encrypted
     def doAction(self, action, algorithm, key, message):

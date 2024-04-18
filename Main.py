@@ -4,6 +4,10 @@ from sys import argv
 from BaseClass import *
 from SocketsFramework.SocketServerThread import *
 
+#Project title is "ACommunicateSecure"
+#TODO Create list of different sources for program, this can be summarised in the Documentation Bibliography, includes things like w3schools and also the NEA guide eBook
+#TODO End user "role" is communicator
+
 class Main(BaseClass):
     def __init__(self):
 

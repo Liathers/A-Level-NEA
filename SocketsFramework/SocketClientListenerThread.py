@@ -32,30 +32,30 @@ class SocketClientListenerThread(BaseClass, Thread):
 #If the message is a relay of another client, then simply output it to the user
                     if message.startswith("[MESSAGERELAY]"):
                         message = message.replace("[MESSAGERELAY]", "")
-                        self.output(f"{message}")
+                        print(f"{message}")
 
 #If the message is the server directly telling the user, output it to the user
                     elif message.startswith("[MESSAGESERVER]"):
                         message = message.replace("[MESSAGESERVER]", "")
-                        self.output(f"[Server] {message}")
+                        print(f"[Server] {message}")
 
 #If the message is a client connecting to the session, notify the user and append it to the connected users list
 #for the client to keep track
                     elif message.startswith("[CONNECTED]"):
                         message = message.replace("[CONNECTED]", "")
-                        self.output(f"[{message}] Connected to the chatroom")
+                        print(f"[Server] {message} connected to the chatroom")
                         self.parent.username.append(message)
 
 #If the message is a client disconnecting from the session, notify the user and also remove it from the
 #connected users list
                     elif message.startswith("[DISCONNECTED]"):
                         message = message.replace("[DISCONNECTED]", "")
-                        self.output(f"[{message}] Disconnected from the chatroom")
+                        print(f"[Server] {message} disconnected from the chatroom")
                         self.parent.username.remove(message)
 
 #If the recieved message is uncategorised, notify the user accordingly and output the message
                     else:
-                        self.output(f"[Client] Recieved uncategorised message {message}")
+                        print(f"[Client] Recieved uncategorised message {message}")
 #If the client disconnects, notify the user and close the socket, as well as ending the thread
                 else:
                     self.output(f"[Disconnect] Client disconnected.")
