@@ -15,6 +15,7 @@ from SocketsFramework.SocketsHandler import *
 #TODO End user "role" is communicator
 #TODO use modules; Pyfiglet
 #TODO don't use GUI, as result of time constraint
+#TODO remove use of pygit2
 
 class Client(BaseClass):
 #Creates the base variables for the client
@@ -62,12 +63,12 @@ class Client(BaseClass):
 #This function is used during development to test the functionality of the Socket Framework server
     def socketServerTest(self):
         self.output("This is a socket server test!")
-        self.socketsHandler.createSocketSession("0.0.0.0", 20000)
+        self.socketsHandler.createSocketSession("0.0.0.0", 2000)
 
 #This function is used during development to test the functionality of the Socket Framework client
     def socketClientTest(self):
         self.output("This is a socket client test!")
-        self.socketsHandler.connectToSocketServerSession("127.0.0.1", 20000, f"Test_User_{random.randint(1,999)}")
+        self.socketsHandler.connectToSocketServerSession("127.0.0.1", 2000, f"Test_User_{random.randint(1,999)}")
         
         self.output("Allowing user input")
         test = True
@@ -87,7 +88,7 @@ class Client(BaseClass):
 
     def socketClientTest2(self):
         self.output("This is a socket client test!")
-        self.socketsHandler.connectToSocketServerSession("127.0.0.1", 20000, f"Test_User_{random.randint(1,999)}")
+        self.socketsHandler.connectToSocketServerSession("127.0.0.1", 2000, f"Test_User_{random.randint(1,999)}")
 
 client = Client()
 #client.devStart()

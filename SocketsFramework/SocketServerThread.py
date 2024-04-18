@@ -3,10 +3,11 @@ from socket import socket, SOL_SOCKET, SO_REUSEADDR
 
 from BaseClass import *
 from SocketsFramework.SocketServerConnectionThread import *
+from EncryptionFramework.EncryptionHandler import *
 
 #This is the thread that will handle logic related to the socket server
 class SocketServerThread(BaseClass, Thread):
-    def __init__(self, ip, port):
+    def __init__(self, ip, port, algorithm, key):
 #Prepare the thread and also get the base functions from BaseClass
         Thread.__init__(self)
         super().__init__()
@@ -15,6 +16,12 @@ class SocketServerThread(BaseClass, Thread):
         self.socket = None
         self.ip = ip
         self.port = port
+
+#Define variables related to encryption
+        self.algorithm = algorithm
+        self.key = key
+        self.encryptionHandler = EncryptionHandler()
+
         self.connections = []
 
 #Start the thread
@@ -25,7 +32,6 @@ class SocketServerThread(BaseClass, Thread):
 #Create the socket that will be used for the server, and bind it to a port
         self.socket = socket()
         self.socket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
-        self.output("Created socket")
 
         self.socket.bind((self.ip, self.port))
         self.output(f"Bound socket to port {self.port}")
@@ -67,15 +73,31 @@ class SocketServerThread(BaseClass, Thread):
 #If the socket is not the same as the author, try to encode and send the message
             if socket != author:
                 try:
-                    socket.send(message.encode())
+                    self.handleSocketEncryption(0, socket, message)
 #If an error occurs, then notify the user, and also broadcast it to all connected clients, and remove it from the list
 #of current connections
-                except Exception as error:
-                    self.output(f"[{info[0]}:{info[1]}] Failed to connect to remote client, formally disconnecting client")
+                except:
+                    self.output(f"Client {info[0]}:{info[1]} lost connection")
                     self.removeClient(socket)
                     self.broadcastFromAuthorToClients(None, f"[DISCONNECTED]{username}")
             else:
                 continue
+
+#This is used to encrypt outbound messages, and then encode and send the message to the defined socket
+    def handleSocketEncryption(self, action, socket, message):
+#If the action is 0, encode and then send the message
+        if action == 0:
+#Encrypt the message using the key and algorithm specified
+            message = self.encryptionHandler.doAction(action, self.algorithm, self.key, message)
+            message = message.encode()
+            socket.send(message)
+
+#If action is 1, decode and then return message
+        elif action == 1:
+            message = message.decode()
+#Encrypt the message using the key and algorithm specified
+            message = self.encryptionHandler.doAction(action, self.algorithm, self.key, message)
+            return message
 
 #Remove all of the currently connected clients from the server, as well as closing the socket so that
 #not further connections can be established

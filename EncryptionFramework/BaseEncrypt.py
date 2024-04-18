@@ -5,7 +5,7 @@ class BaseEncrypt(BaseClass):
     def __init__(self, action, key, message):
         super().__init__()
 
-#Define local variables for the used key, message sent, and what action i to be performed
+#Define local variables for the used key, message sent, and what action is to be performed
         self.action = action
         self.key = key
         self.message = message

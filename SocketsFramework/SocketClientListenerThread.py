@@ -20,8 +20,6 @@ class SocketClientListenerThread(BaseClass, Thread):
 
 #Execute this function as the thread is running
     def run(self):
-#Notify the user that the client is waiting for messages from the server
-        self.output("Listening for messages")
 #Run this as long as the thread is running
         while True:
             try:
@@ -29,7 +27,7 @@ class SocketClientListenerThread(BaseClass, Thread):
                 messageEncoded = self.socket.recv(1024)
 #If one is recieved, decode the message and then do logic surrounding it
                 if messageEncoded:
-                    message = messageEncoded.decode()
+                    message = self.parent.handleSocketEncryption(1, None, messageEncoded)
 
 #If the message is a relay of another client, then simply output it to the user
                     if message.startswith("[MESSAGERELAY]"):

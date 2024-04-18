@@ -8,12 +8,10 @@ class CaesarCipherEncrypt(BaseEncrypt):
 
 #This will be called in order to encrypt a message, this will then call the changeShift function accordingly
     def encrypt(self):
-        self.output("Encrypting message..")
         return self.changeShift(True)
 
 #This will be called in order to decrypt a message, this will then call the changeShift function accordingly
     def decrypt(self):
-        self.output("Decrypting message..")
         return self.changeShift(False)
 
 #This is the main function that is used to encrypt a message, this will be done by shifting the alphanumeric
@@ -33,19 +31,22 @@ class CaesarCipherEncrypt(BaseEncrypt):
 #Cycle through each character within the string, and do actions based on whether it is alphanumeric or not
         for character in self.message:
             if character.isalpha():
+#Get the start of the alphabet, to simplify calculations
+                alphabetStart = ord("a")
 #Get the shift of the character, by taking the unicode value and taking away the unicode value of "a"
-                characterShift = ord(character.lower()) - ord('a')
-
+                characterAsciiBase = ord(character.lower()) - alphabetStart
 #If encrypting is true, ensure that the shift changes the message positively
                 if encrypting:
 #Add the defined shift from self.key to characterShifted, ensuring that it stays within the alphanumeric values,
 #then add the value of "a" to it
-                    characterShifted = chr((characterShift + self.key) % 26 + ord('a'))
+                    characterAsciiBaseShifted = characterAsciiBase + self.key
+                    characterShifted = chr(characterAsciiBaseShifted % 26 + alphabetStart)
 #If not encrypting, ensure that the shift changes the message negatively
                 else:
 #Remove the defined shift from self.key to characterShifted, ensuring that it stays within the alphanumeric values,
 #then add the value of "a" to it
-                    characterShifted = chr((characterShift - self.key) % 26 + ord('a'))
+                    characterAsciiBaseShifted = characterAsciiBase - self.key
+                    characterShifted = chr(characterAsciiBaseShifted % 26 + alphabetStart)
 
 #If the original character is in uppercase, then ensure that the shifted character is also uppercase,
 #if not, then just add the lowercase character
